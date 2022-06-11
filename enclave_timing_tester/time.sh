@@ -1,0 +1,10 @@
+time runner/target/debug/runner app/target/x86_64-fortanix-unknown-sgx/debug/app.sgxs
+time runner/target/debug/runner app/target/x86_64-fortanix-unknown-sgx/debug/app.sgxs
+time runner/target/debug/runner app/target/x86_64-fortanix-unknown-sgx/debug/app.sgxs
+time runner/target/debug/runner app/target/x86_64-fortanix-unknown-sgx/debug/app.sgxs
+time runner/target/debug/runner app/target/x86_64-fortanix-unknown-sgx/debug/app.sgxs
+time runner/target/debug/runner app/target/x86_64-fortanix-unknown-sgx/debug/app.sgxs
+time runner/target/debug/runner app/target/x86_64-fortanix-unknown-sgx/debug/app.sgxs
+time runner/target/debug/runner app/target/x86_64-fortanix-unknown-sgx/debug/app.sgxs
+time runner/target/debug/runner app/target/x86_64-fortanix-unknown-sgx/debug/app.sgxs
+time runner/target/debug/runner app/target/x86_64-fortanix-unknown-sgx/debug/app.sgxs

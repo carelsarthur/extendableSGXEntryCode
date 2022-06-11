@@ -1,0 +1,53 @@
++----------------+ <- Entry-handling stack
+|                |
+|                |
+|                |
+|                |
+|                |
+|                |
+|                |
+|                |
++----------------+
+
+
++----------------+\<-  gs segment
+|                | |
++----------------+ |
+|                | | state at enclave entry
++----------------+ |  
+|                | |
++----------------+ |
+|                |/
++----------------+\
+|                | |
++----------------+ |
+|                | | state before usercall / clean state for new Rust code
++----------------+ |  
+|                | |
++----------------+ |
+|                |/
++----------------+
+
+entry:
+[1] store state in gs segment (xsave + general regs)
+[2] clear state (known "good" state)
+[3] start using temp stack
+[4] jump to Rust
+   [4.1] If: First call?
+      [4.1.1] Fill in gs section for new Rust code (e.g., correct stack)
+      [4.1.2] Restore from gs segment
+   [4.2] Else if: return from usercall?
+      [4.2.1] Update state? (e.g, fill in return values)
+      [4.2.2] Restore from gs segment
+   [4.3] Else: Return from seg fault (AEX)?
+      [4.3.1] Inspect problem and fix
+      [4.3.2] Restore from gs segment
+   ([4.4] Optional else if: Andere thread komt enclave binnen)
+
+   
+do usercall:
+[1] store state in gs segment (+ signal that you are calling user code)
+[2] clear state
+[3] exit enclave
+
+

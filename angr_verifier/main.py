@@ -23,7 +23,6 @@ import angr
 # import "top-level structure" to avoid name clashes between the module namespaces
 import claripy
 from angr.calling_conventions import SimCCSystemVAMD64
-from cle.backends.elf.relocation.amd64 import arch
 
 import layout
 import hooker
@@ -58,7 +57,7 @@ class Project:
 
         # Define the lay-out of the enclave:
         self.layout = layout.EnclaveMemoryLayout(self.angr_project)
-        self.layout.get_layout(self.angr_project)
+        # self.layout.get_layout(self.angr_project)  # Print out some lay-out information (outdated!)
 
         # Initialize the enclave state
         self.init_enclave_state()
@@ -94,7 +93,7 @@ class Project:
             Example: tcsls_flags is made symbolic to either call tcs_init or not.
         Lastly, some global and thread-specific data is set
         """""
-        self.entry_state = self.angr_project.factory.blank_state(cc=SimCCSystemVAMD64(arch),
+        self.entry_state = self.angr_project.factory.blank_state(
                                 add_options={"SYMBOL_FILL_UNCONSTRAINED_MEMORY", "SYMBOLIC_WRITE_ADDRESSES",
                                              "SYMBOL_FILL_UNCONSTRAINED_REGISTERS"})
         self.entry_state.regs.rip = self.enter_addr  
@@ -316,11 +315,15 @@ if __name__ == '__main__':
 
     # Initialize the argparser (which checks if full analysis is requested)
     parser = argparse.ArgumentParser()
+    parser.add_argument("-p", "--path", "-file-path", help="Give path of binary, otherwise \"tmp/app/target/x86_64-fortanix-unknown-sgx/debug/app\" will be used")
     parser.add_argument("-f", "--full", "--full-analysis", help="Set \"True\" if you want full analysis of the binary")
     args = parser.parse_args()
     full_analysis: bool = args.full and args.full.lower() == "true"  # True? --> request "full analysis" later on!
 
-    enclave_path: str = "/tmp/app/target/x86_64-fortanix-unknown-sgx/debug/app"
+    if args.path:
+        enclave_path: str = args.path
+    else:
+        enclave_path: str = "/tmp/app/target/x86_64-fortanix-unknown-sgx/debug/app"
     proj = angr.Project(enclave_path, load_options={'auto_load_libs': False}, main_opts={"base_addr": 0})#, engine=angr.engines.unicorn.SimEngineUnicorn)
     guard = Project(proj, full_analysis)
 

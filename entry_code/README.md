@@ -9,8 +9,24 @@ The process of using these modifications is a bit of a hassle, but it basically 
 *entry.S*, *mod.rs* and *elf_and_info.S* 
 
 - Install the Fortanix EDP required stuff: [https://edp.fortanix.com/docs/installation/guide/]
+
+- Install a customized version of fortanix-sgx-tools
+The required version can be found in the *rust-sgx* folder.
+Approach to install it:
+```
+cargo install --path <path_to_fortanix-sgx-tools>
+```
+
 - Compile Rust
-
 You can use the helper script provided along: *attempt.sh*
+```
+chmod a+x attempt.sh
+./attempt.sh
+```
 
-Note: there may be a step missing here. It's been a while for me as well. ;)
+- Another potentially useful command is
+```
+python3 ./x.py build library/std  # Issue this command in the root of the Rust repo 
+```
+
+**Note:** there might be a step missing here. It's been a while for me as well. ;)

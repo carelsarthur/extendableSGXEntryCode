@@ -1,9 +1,9 @@
 # extendableSGXEntryCode
-This is the code for the master's thesis: "Design and Verification of extendable Intel SGX entry code" at KU Leuven.
+This is the code for the master's thesis: "Design and Verification of extensible Intel SGX entry code" at the KU Leuven (faculty of Engineering - Computer Science - Distrinet).
 
-Promotor: Prof. dr. Ir. Frank Piessens
+Supervisor: Prof. dr. Ir. Frank Piessens
 
-Supervisors: dr. Raoul Strackx, dr. Ir. Neline van Ginkel, Ir. Kobe Vrancken
+Assistant-Supervisors: dr. Raoul Strackx, dr. Ir. Neline van Ginkel, Ir. Kobe Vrancken
 
 ## Contributions
 - We simplified the Fortanix EDP entry code. This was done by eliminating all conditional branching in the assembly code. By doing this, as much code as possible was translated to the higher-level Rust language.
@@ -29,4 +29,5 @@ This file contains the actual entry code.
 
 # License
 The standard Rust license (i.e. both the MIT license and the Apache License (Version 2.0)) has been followed where possible.
-However: the folder containing the angr code is licensed under the GNU Affero General Public License.
+
+**Note**: the folder containing the angr code is licensed under the GNU Affero General Public License.
